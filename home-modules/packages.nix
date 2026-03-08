@@ -24,6 +24,7 @@ let
     ps.psutil
     ps.pycairo
     ps.pygobject3
+    ps."python-magic"
     ps.pywayland
     ps.setproctitle
     ps."setuptools-scm"
@@ -72,6 +73,7 @@ in
       wf-recorder
       hyprshot
       wlogout
+      alacritty
 
       # System utilities
       xdg-user-dirs
@@ -115,9 +117,6 @@ in
       hicolor-icon-theme  # Base icon theme (required by most themes)
       gnome-icon-theme  # Additional GNOME icon coverage
       kdePackages.breeze-icons  # KDE Breeze icons (required by Papirus inheritance)
-
-      # Cloudflare-warp
-      cloudflare-warp
       
       # Python with required packages for wallpaper analysis
       pythonEnv
@@ -132,6 +131,8 @@ in
       kdePackages.polkit-kde-agent-1  # Polkit authentication agent
       kdePackages.kdialog  # Dialog prompts
       kdePackages.kirigami
+      kdePackages.dolphin
+      kdePackages.ark
 
       # Additional Qt support
       libsForQt5.qtgraphicaleffects
@@ -145,5 +146,16 @@ in
     ] ++ lib.optionals cfg.dotfiles.starship.enable [
       starship
     ];
+
+    # Extra configurations for some packages
+    programs.neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      extraConfig = ''
+        set number
+      '';
+    };
   };
 }

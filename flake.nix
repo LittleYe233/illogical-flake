@@ -6,7 +6,7 @@
     nixpkgs.url = "git+http://mirror.nju.edu.cn/git/nixpkgs.git?ref=nixos-unstable&shallow=1";
 
     quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
