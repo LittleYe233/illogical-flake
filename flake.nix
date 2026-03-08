@@ -3,7 +3,7 @@
 
   inputs = {
     # These will be overridden by the user's flake
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "git+http://mirror.nju.edu.cn/git/nixpkgs.git?ref=nixos-unstable&shallow=1";
 
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
@@ -17,7 +17,7 @@
 
     # Default dotfiles - can be overridden by users
     dotfiles = {
-      url = "git+https://github.com/end-4/dots-hyprland?submodules=1";
+      url = "git+https://github.com/LittleYe233/dots-hyprland?submodules=1";
       flake = false;
     };
   };
