@@ -147,16 +147,5 @@ in
     ] ++ lib.optionals cfg.dotfiles.starship.enable [
       starship
     ];
-
-    # Extra configurations for some packages
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-      extraConfig = ''
-        set number
-      '';
-    };
   };
 }
