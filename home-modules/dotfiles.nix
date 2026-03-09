@@ -160,7 +160,9 @@ in
       # "kdeglobals".source = "${dotfilesSource}/dots/.config/kdeglobals";
       
       "kde-material-you-colors".source = "${dotfilesSource}/dots/.config/kde-material-you-colors";
-      "kitty".source = "${dotfilesSource}/dots/.config/kitty";
+      "kitty" = mkIf cfg.dotfiles.kitty.enable {
+        source = "${dotfilesSource}/dots/.config/kitty";
+      };
       "konsolerc".source = "${dotfilesSource}/dots/.config/konsolerc";
       "Kvantum".source = "${dotfilesSource}/dots/.config/Kvantum";
       "matugen".source = "${dotfilesSource}/dots/.config/matugen";
@@ -186,7 +188,9 @@ in
         patchShebangs $out
       '';
 
-      "starship.toml".source = "${dotfilesSource}/dots/.config/starship.toml";
+      "starship.toml" = mkIf cfg.dotfiles.starship.enable {
+        source = "${dotfilesSource}/dots/.config/starship.toml";
+      };
       "thorium-flags.conf".source = "${dotfilesSource}/dots/.config/thorium-flags.conf";
       "wlogout".source = "${dotfilesSource}/dots/.config/wlogout";
       "xdg-desktop-portal".source = "${dotfilesSource}/dots/.config/xdg-desktop-portal";
