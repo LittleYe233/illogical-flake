@@ -15,9 +15,10 @@ let
 in
 {
   options.programs.illogical-impulse.dotfiles = {
-    fish.enable = mkEnableOption "Use the Illogical Impulse fish config" // { default = true; };
-    kitty.enable = mkEnableOption "Install kitty and use the Illogical Impulse kitty config" // { default = true; };
-    starship.enable = mkEnableOption "Install starship and use the Illogical Impulse prompt" // { default = true; };
+    fish.enable = mkEnableOption "Use the Illogical Impulse fish config" // { default = false; };
+    kitty.enable = mkEnableOption "Install kitty and use the Illogical Impulse kitty config" // { default = false; };
+    starship.enable = mkEnableOption "Install starship and use the Illogical Impulse prompt" // { default = false; };
+    zsh.enable = mkEnableOption "Install zsh" // { default = true; };
   };
 
   options.programs.illogical-impulse.hyprland = {
