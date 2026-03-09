@@ -147,8 +147,6 @@ in
       kitty
     ] ++ lib.optionals cfg.dotfiles.starship.enable [
       starship
-    ] ++ lib.optionals cfg.dotfiles.zsh.enable [
-      zsh
     ];
   };
 }
