@@ -107,25 +107,17 @@ in
       '') cfg.hyprland.plugins;
       
       # Hyprland Environment - Patched to fix XDG_DATA_DIRS and define qsConfig EARLY
-      "hypr/hyprland/env.conf".text = ''
+      "hypr/hyprland/env.conf".text = (builtins.readFile) + ''
         # --- Injected Environment by Illogical Impulse Flake ---
         env = PATH,${config.home.homeDirectory}/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH
         env = XDG_DATA_DIRS,${config.home.homeDirectory}/.nix-profile/share:${config.home.homeDirectory}/.local/share:/etc/profiles/per-user/${config.home.username}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:$XDG_DATA_DIRS
         env = QT_PLUGIN_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/plugins:${config.home.homeDirectory}/.nix-profile/lib/plugins
         env = QML2_IMPORT_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/qml
         env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
-        env = QT_QPA_PLATFORMTHEME,gtk3
         
         # Define qsConfig for exec-once commands
         $qsConfig = ${config.home.homeDirectory}/.config/quickshell/ii
         env = qsConfig,${config.home.homeDirectory}/.config/quickshell/ii
-
-        # --- Original Environment Content ---
-        env = ELECTRON_OZONE_PLATFORM_HINT,auto
-        env = QT_QPA_PLATFORM, wayland
-        env = XDG_MENU_PREFIX, plasma-
-        env = ILLOGICAL_IMPULSE_VIRTUAL_ENV, ~/.local/state/quickshell/.venv
-        env = TERMINAL,kitty -1
       '';
 
       # Symlink other hyprland files individually
