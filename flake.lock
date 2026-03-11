@@ -47,13 +47,13 @@
         "rev": "9dcb002ca1690658be4a04645215baea8b95f31d",
         "shallow": true,
         "type": "git",
-        "url": "http://mirror.nju.edu.cn/git/nixpkgs.git"
+        "url": "http://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git"
       },
       "original": {
         "ref": "nixos-unstable",
         "shallow": true,
         "type": "git",
-        "url": "http://mirror.nju.edu.cn/git/nixpkgs.git"
+        "url": "http://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git"
       }
     },
     "nur": {
@@ -64,11 +64,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773206216,
-        "narHash": "sha256-zODqMIuMUDYHxHCKtKyUL7qckWX+ggbaCpQVBQKMMOI=",
+        "lastModified": 1773234540,
+        "narHash": "sha256-BKvkcEIfLLHX4vy1wNuZ6ie8wuJFku6EuJTbfvABTLo=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "90f69edef312092455879bb82faf8feb1be44297",
+        "rev": "6f7582911c98d5cd9c7fb379cd50afde31aca931",
         "type": "github"
       },
       "original": {
