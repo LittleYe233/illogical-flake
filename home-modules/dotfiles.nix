@@ -103,14 +103,20 @@ in
     fonts.fontconfig.enable = true;
 
     # Dotfiles management via Home Manager (XDG Config)
+    # In alphabet A-Z order
     xdg.configFile = {
       "chrome-flags.conf".source = "${dotfilesSource}/dots/.config/chrome-flags.conf";
       "code-flags.conf".source = "${dotfilesSource}/dots/.config/code-flags.conf";
       "darklyrc".source = "${dotfilesSource}/dots/.config/darklyrc";
       "dolphinrc".source = "${dotfilesSource}/dots/.config/dolphinrc";
+      # Fish config (custom integration)
+      "fish" = mkIf cfg.dotfiles.fish.enable {
+        source = "${dotfilesSource}/dots/.config/fish";
+      };
+      # Fontconfig wrapper to ensure system fonts are loaded
+      "fontconfig/fonts.conf".source = "${dotfilesSource}/dots/.config/fontconfig/fonts.conf";
       "foot".source = "${dotfilesSource}/dots/.config/foot";
       "fuzzel".source = "${dotfilesSource}/dots/.config/fuzzel";
-      
       # Hyprland Config
       # Use text/readFile to put the file in the HM generation directory
       # This ensures relative sources (like hyprland/env.conf) resolve to OUR patched files
@@ -119,12 +125,10 @@ in
         # Load declarative plugins from the flake
         source = plugins.conf
       '';
-      
       # Generate plugins.conf with paths to installed plugins
       "hypr/plugins.conf".text = lib.concatMapStrings (plugin: ''
         plugin = ${plugin}/lib/lib${plugin.pname}.so
       '') cfg.hyprland.plugins;
-      
       # Hyprland Environment - Patched to fix XDG_DATA_DIRS and define qsConfig EARLY
       "hypr/hyprland/env.conf".text = (builtins.readFile "${dotfilesSource}/dots/.config/hypr/hyprland/env.conf") + ''
 
@@ -139,19 +143,13 @@ in
         $qsConfig = ${config.home.homeDirectory}/.config/quickshell/ii
         env = qsConfig,${config.home.homeDirectory}/.config/quickshell/ii
       '';
-
-      # Symlink other hyprland files individually
       "hypr/hyprland/colors.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/colors.conf";
       "hypr/hyprland/execs.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/execs.conf";
       "hypr/hyprland/general.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/general.conf";
       "hypr/hyprland/keybinds.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/keybinds.conf";
       "hypr/hyprland/rules.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/rules.conf";
       "hypr/hyprland/scripts".source = "${dotfilesSource}/dots/.config/hypr/hyprland/scripts";
-
-      # Hyprland Custom Env - Reverted to direct source
       "hypr/custom/env.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/env.conf";
-
-      # Symlink custom siblings
       "hypr/custom/execs.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/execs.conf";
       "hypr/custom/general.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/general.conf";
       "hypr/custom/keybinds.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/keybinds.conf";
@@ -161,12 +159,10 @@ in
       "hypr/hypridle.conf".source = "${dotfilesSource}/dots/.config/hypr/hypridle.conf";
       "hypr/hyprlock.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprlock.conf";
       "hypr/monitors.conf".source = "${dotfilesSource}/dots/.config/hypr/monitors.conf";
-      "hypr/workspaces.conf".source = "${dotfilesSource}/dots/.config/hypr/workspaces.conf";
-
+      "hypr/workspaces.conf".source = "${dotfilesSource}/dots/.config/hypr/workspaces.conf";      
+      "kde-material-you-colors".source = "${dotfilesSource}/dots/.config/kde-material-you-colors";
       # kdeglobals handled in activation script
       # "kdeglobals".source = "${dotfilesSource}/dots/.config/kdeglobals";
-      
-      "kde-material-you-colors".source = "${dotfilesSource}/dots/.config/kde-material-you-colors";
       "kitty" = mkIf cfg.dotfiles.kitty.enable {
         source = "${dotfilesSource}/dots/.config/kitty";
       };
@@ -174,7 +170,6 @@ in
       "Kvantum".source = "${dotfilesSource}/dots/.config/Kvantum";
       "matugen".source = "${dotfilesSource}/dots/.config/matugen";
       "mpv".source = "${dotfilesSource}/dots/.config/mpv";
-      
       # Patch QuickShell scripts to fix shebangs (e.g., #!/bin/bash -> #!/nix/store/.../bash)
       "quickshell".source = pkgs.runCommand "quickshell-patched" { 
         buildInputs = [ 
@@ -194,40 +189,16 @@ in
 
         patchShebangs $out
       '';
-
       "starship.toml" = mkIf cfg.dotfiles.starship.enable {
         source = "${dotfilesSource}/dots/.config/starship.toml";
       };
       "thorium-flags.conf".source = "${dotfilesSource}/dots/.config/thorium-flags.conf";
       "wlogout".source = "${dotfilesSource}/dots/.config/wlogout";
       "xdg-desktop-portal".source = "${dotfilesSource}/dots/.config/xdg-desktop-portal";
-      #"zshrc.d".source = "${dotfilesSource}/dots/.config/zshrc.d";
       "zshrc.d/99-exports.zsh".text = ''
         # Set up gsettings schema path
         export GSETTINGS_SCHEMA_DIR=${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}/glib-2.0/schemas
       '';
-
-      # Fontconfig wrapper to ensure system fonts are loaded
-      "fontconfig/fonts.conf".text = ''
-        <?xml version="1.0"?>
-        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-        <fontconfig>
-            <include ignore_missing="yes">/etc/fonts/fonts.conf</include>
-            <match target="font">
-                <edit name="rgba" mode="assign">
-                <const>none</const>
-            </edit>
-          </match>
-        </fontconfig>
-      '';
-      
-      # Fish config (custom integration)
-      "fish/config-custom.fish" = mkIf cfg.dotfiles.fish.enable {
-        source = "${dotfilesSource}/dots/.config/fish/config.fish";
-      };
-      "fish/auto-Hypr.fish" = mkIf cfg.dotfiles.fish.enable {
-        source = "${dotfilesSource}/dots/.config/fish/auto-Hypr.fish";
-      };
     };
 
     # Dotfiles management via Home Manager (XDG Data)
