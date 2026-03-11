@@ -87,11 +87,16 @@ in
     xdg.portal = {
       enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-gnome
+        xdg-desktop-portal-hyprland
         xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
         kdePackages.xdg-desktop-portal-kde
       ];
+      config = {
+        hyprland = {
+          default = [ "hyprland" "gtk" ];
+          "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+        };
+      };
     };
 
     # Enable fontconfig
