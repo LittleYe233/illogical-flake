@@ -129,7 +129,7 @@ in
         env = QT_PLUGIN_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/plugins:${config.home.homeDirectory}/.nix-profile/lib/plugins
         env = QML2_IMPORT_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/qml
         env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
-        
+                
         # Define qsConfig for exec-once commands
         $qsConfig = ${config.home.homeDirectory}/.config/quickshell/ii
         env = qsConfig,${config.home.homeDirectory}/.config/quickshell/ii
@@ -196,7 +196,11 @@ in
       "thorium-flags.conf".source = "${dotfilesSource}/dots/.config/thorium-flags.conf";
       "wlogout".source = "${dotfilesSource}/dots/.config/wlogout";
       "xdg-desktop-portal".source = "${dotfilesSource}/dots/.config/xdg-desktop-portal";
-      "zshrc.d".source = "${dotfilesSource}/dots/.config/zshrc.d";
+      #"zshrc.d".source = "${dotfilesSource}/dots/.config/zshrc.d";
+      "zshrc.d/99-exports.zsh".text = ''
+        # Set up gsettings schema path
+        export GSETTINGS_SCHEMA_DIR=${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}/glib-2.0/schemas
+      '';
 
       # Fontconfig wrapper to ensure system fonts are loaded
       "fontconfig/fonts.conf".text = ''
