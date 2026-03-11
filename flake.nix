@@ -3,7 +3,7 @@
 
   inputs = {
     # These will be overridden by the user's flake
-    nixpkgs.url = "git+http://mirror.nju.edu.cn/git/nixpkgs.git?ref=nixos-unstable&shallow=1";
+    nixpkgs.url = "git+http://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git?ref=nixos-unstable&shallow=1";
 
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
