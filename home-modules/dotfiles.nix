@@ -83,6 +83,20 @@ in
       };
     };
 
+    # Set up portals
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gnome
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
+        kdePackages.xdg-desktop-portal-kde
+      ];
+    };
+
+    # Enable fontconfig
+    fonts.fontconfig.enable = true;
+
     # Dotfiles management via Home Manager (XDG Config)
     xdg.configFile = {
       "chrome-flags.conf".source = "${dotfilesSource}/dots/.config/chrome-flags.conf";
@@ -107,7 +121,8 @@ in
       '') cfg.hyprland.plugins;
       
       # Hyprland Environment - Patched to fix XDG_DATA_DIRS and define qsConfig EARLY
-      "hypr/hyprland/env.conf".text = (builtins.readFile) + ''
+      "hypr/hyprland/env.conf".text = (builtins.readFile "${dotfilesSource}/dots/.config/hypr/hyprland/env.conf") + ''
+
         # --- Injected Environment by Illogical Impulse Flake ---
         env = PATH,${config.home.homeDirectory}/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH
         env = XDG_DATA_DIRS,${config.home.homeDirectory}/.nix-profile/share:${config.home.homeDirectory}/.local/share:/etc/profiles/per-user/${config.home.username}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:$XDG_DATA_DIRS
@@ -123,12 +138,7 @@ in
       # Symlink other hyprland files individually
       "hypr/hyprland/colors.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/colors.conf";
       "hypr/hyprland/execs.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/execs.conf";
-      # Patch general.conf to remove obsolete hyprexpo options (enable_gesture, gesture_positive)
-      # These were removed from the hyprexpo plugin API and cause "Invalid value false for finger count" error
-      "hypr/hyprland/general.conf".text = builtins.replaceStrings
-        [ "enable_gesture = false" "gesture_positive = false" ]
-        [ "# enable_gesture = false  # Removed: obsolete hyprexpo option" "# gesture_positive = false  # Removed: obsolete hyprexpo option" ]
-        (builtins.readFile "${dotfilesSource}/dots/.config/hypr/hyprland/general.conf");
+      "hypr/hyprland/general.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/general.conf";
       "hypr/hyprland/keybinds.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/keybinds.conf";
       "hypr/hyprland/rules.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/rules.conf";
       "hypr/hyprland/scripts".source = "${dotfilesSource}/dots/.config/hypr/hyprland/scripts";

@@ -10,7 +10,6 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      customPkgs.material-symbols
       rubik
       nurPkgs.repos.skiletro.gabarito
       nerd-fonts.ubuntu

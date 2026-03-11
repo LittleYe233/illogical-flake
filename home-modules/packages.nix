@@ -43,103 +43,157 @@ in
     default = pythonEnv;
   };
 
+  # See dots-hyprland/sdata/dist-nix/home-manager/home.nix to check out packages
   config = lib.mkIf cfg.enable {
     # User packages for Illogical Impulse
     home.packages = with pkgs; [
-      # Core utilities
-      cava
-      lxqt.pavucontrol-qt
-      wireplumber
+      ##### Sure #####
+      inetutils # provides hostname, ifconfig, ping, etc.
+      libnotify # provides notify-send
+
+      #dbus
+      xlsclients # list client apps on X11 (still needed?)
+      kdePackages.kconfig # provides kwriteconfig6 used in install script (still needed?)
+
+      ##### Deps from illogical-impulse AUR pkgs #####
+      ### audio
+      libcava # provides & replaces cava
+      lxqt.pavucontrol-qt # provides pavucontrol-qt
+      wireplumber # provides wireplumber
+      # Has been installed system-wide
+      #pipewire # provides pipewire-pulse and many
       libdbusmenu-gtk3
-      playerctl
-      brightnessctl
-      ddcutil
-      axel
-      bc
-      cliphist
-      curl
-      rsync
-      wget
-      libqalculate
-      ripgrep
-      jq
+      playerctl # provides playerctl (controls media players)
 
-      # GUI applications
-      foot
-      fuzzel
-      matugen
-      mpv
-      mpvpaper
-      swappy
-      wf-recorder
-      hyprshot
-      wlogout
-      alacritty
+      ### backlight
+      # geoclue2 has been installed system-wide
+      brightnessctl # provides brightnessctl
+      ddcutil # provides ddcutil
 
-      # System utilities
-      xdg-user-dirs
-      tesseract
-      slurp
-      upower
-      wtype
-      ydotool
-      glib
-      swww
-      translate-shell
-      hyprpicker
-      imagemagick
-      ffmpeg
-      songrec  # Music recognition
-      pulseaudio  # Provides pactl and parec for audio recording
-      gnome-settings-daemon  # Provides gsettings
-      libnotify  # Provides notify-send
-      easyeffects
-      grim
+      ### basic
+      bc # provides bc (GNU calc)
+      uutils-coreutils-noprefix # provides coreutils (Rust rewrite)
+      cliphist # provides cliphist
+      cmake # provides cmake
+      # Both should be installed.
+      #curlFull # provides curl
+      #wget # provides wget
+      ripgrep # provides rg
+      jq # provides jq
+      xdg-user-dirs # provides xdg-user-dirs
+      rsync # provides rsync
+      yq-go # provides yq (CLI YAML processor)
 
-      # Wayland/Hyprland specific
-      hyprlock
-      hypridle
-      hyprsunset
-      wayland-protocols
-      wl-clipboard
+      ### bibata-modern-classic-bin
+      bibata-cursors # cursor theme
 
-      # Development libraries
-      libsoup_3
-      libportal-gtk4
-      gobject-introspection
-      sassc
-      # opencv is included in pythonEnv, no need to include it separately
+      ### fonts-themes
+      adwaita-icon-theme # GNOME fallback icons
+      adw-gtk3 # libadwaita port
+      kdePackages.breeze # breeze
+      kdePackages.breeze-icons # breeze
+      #breeze-plus # third-party breeze-plus icon set # TODO: unavailable
+      darkly # Qt style, provides darkly-settings6
+      darkly-qt5 # Qt style
+      eza # provides eza
+      #fish # provides fish
+      fontconfig # provides fc-*
+      matugen # provides matugen
+      #otf-space-grotesk # TODO: unavailable
+      #nerd-fonts.jetbrains-mono
+      material-symbols # Google Material symbols icons
+      #ttf-readex-pro # TODO: unavailable
+      #rubik
+      twemoji-color-font # Color emoji SVGinOT font using Twitter Unicode 10
 
-      # Themes and icons
-      adw-gtk3
+      ### hyprland
+      #hyprland
+      hyprsunset # provides hyprsunset
+      wl-clipboard # provides wl-copy/-paste
+
+      ### kde
+      kdePackages.bluedevil # Bluetooth management (for kcm_bluetooth)
+      # Both enabled as service system-wide
+      #gnome-keyring # provides gnome-keyring
+      #networkmanager
+      kdePackages.plasma-nm # Network management (for kcm_networkmanagement)
+      kdePackages.polkit-kde-agent-1 # Polkit authentication agent # NOTE: Hope it works in user-wide
+      kdePackages.dolphin
+      kdePackages.systemsettings
+
+      ## Optional pkgs
+      kdePackages.plasma-workspace # provides plasma-apply-colorscheme
+      kdePackages.kde-cli-tools # Provides various KDE CLI utilities
+      kdePackages.kdialog # Dialog prompts
+      #kdePackages.kirigami
+      kdePackages.ark
+
+      ### microtex-git
+      # TODO: unavailable
+
+      ### oneui4-icons-git
       customPkgs.illogical-impulse-oneui4-icons
-      papirus-icon-theme  # Primary icon theme
-      adwaita-icon-theme  # GNOME fallback icons
-      hicolor-icon-theme  # Base icon theme (required by most themes)
-      gnome-icon-theme  # Additional GNOME icon coverage
-      kdePackages.breeze-icons  # KDE Breeze icons (required by Papirus inheritance)
+
+      ### portal
+      # Included elsewhere
+
+      ### python
+      #clang # NOTE: no such pkg? no need?
+      uv # provides uv
+      gtk4
+      libadwaita
+      libsoup_3 # GNOME HTTP C/S library
+      libportal-gtk4 # Flatpak portal library
+      gobject-introspection # Programming language middleware layer
+
+      ### quickshell-git
+      # No need certainly
+
+      ### screencapture
+      hyprshot # provides hyprshot
+      #grim # not in dist-arch but may be an optional alternative
+      slurp # provides slurp
+      swappy # provides swappy
+      tesseract # provides tesseract
+      #tesseract-data-eng # TODO: unavailable
+      wf-recorder # provides wf-recorder
+
+      ### toolkit
+      upower # provides upower
+      wtype # provides wtype (xdotool type for wayland)
+      ydotool # provides ydotool(d) (CLI automation tool)
+
+      ### widgets
+      fuzzel # provides fuzzel
+      glib # GLib 2
+      imagemagick # provides magick and more
+      hypridle # provides hypridle
+      # Installed system-wide
+      #hyprlock # provides hyprlock
+      hyprpicker # provides hyprpicker
+      songrec # provides songrec
+      translate-shell # provides trans (translation CLI)
+      wlogout # provides wlogout
+      libqalculate # provides qalc (advanced calc library)
+
+      ##### Other optionals #####
+      pulseaudio  # provides pactl and parec for audio recording
+      gnome-settings-daemon # [rovides gsettings
+      easyeffects # provides easyeffects (pipewire audo effects)
+      wayland-protocols
+      sassc # provides sassc (front-end libsass)
+      papirus-icon-theme # primary icon theme
+      hicolor-icon-theme # base icon theme (required by most themes)
+      gnome-icon-theme # additional GNOME icon coverage
       
       # Python with required packages for wallpaper analysis
       pythonEnv
-      eza  # Modern ls replacement
-      tealdeer
-
-      # Minimal Qt/KDE packages (only what's needed for functionality)
-      gnome-keyring  # Keyring support
-      kdePackages.bluedevil  # Bluetooth management (for kcm_bluetooth)
-      kdePackages.plasma-nm  # Network management (for kcm_networkmanagement)
-      kdePackages.plasma-workspace # Provides plasma-apply-colorscheme
-      kdePackages.kde-cli-tools # Provides various KDE CLI utilities
-      kdePackages.polkit-kde-agent-1  # Polkit authentication agent
-      kdePackages.kdialog  # Dialog prompts
-      kdePackages.kirigami
-      kdePackages.dolphin
-      kdePackages.ark
 
       # Additional Qt support
       libsForQt5.qtgraphicaleffects
       libsForQt5.qtsvg
-      # for quickshell key store
+
+      # For quickshell key store
       libsecret
     ] ++ lib.optionals cfg.dotfiles.fish.enable [
       fish
