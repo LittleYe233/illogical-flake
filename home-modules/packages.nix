@@ -127,6 +127,7 @@ in
       kdePackages.kdialog # Dialog prompts
       #kdePackages.kirigami
       kdePackages.ark
+      kdePackages.okular
 
       ### microtex-git
       # TODO: unavailable
@@ -177,7 +178,7 @@ in
       libqalculate # provides qalc (advanced calc library)
 
       ##### Other optionals #####
-      pulseaudio  # provides pactl and parec for audio recording
+      pulseaudio # provides pactl and parec for audio recording
       gnome-settings-daemon # [rovides gsettings
       easyeffects # provides easyeffects (pipewire audo effects)
       wayland-protocols
@@ -185,6 +186,7 @@ in
       papirus-icon-theme # primary icon theme
       hicolor-icon-theme # base icon theme (required by most themes)
       gnome-icon-theme # additional GNOME icon coverage
+      kdePackages.fcitx5-configtool # Fcitx5 GUI controller
       
       # Python with required packages for wallpaper analysis
       pythonEnv
