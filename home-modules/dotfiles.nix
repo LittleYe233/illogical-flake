@@ -12,6 +12,15 @@ let
   # Custom packages
   customPkgs = import ../pkgs { inherit pkgs; };
   oneUIIconsPath = "${customPkgs.illogical-impulse-oneui4-icons}/share/icons";
+
+  # Must-be mutable configuration files for switchwall.sh
+  mutableFiles = [
+    "hypr/hyprland/colors.conf"
+    "hypr/hyprlock/colors.conf"
+    "fuzzel/fuzzel_theme.ini"
+    # No need for kdeglobals for it is handled in activation script already
+    #"kdeglobals"
+  ];
 in
 {
   options.programs.illogical-impulse.dotfiles = {
@@ -116,7 +125,9 @@ in
       # Fontconfig wrapper to ensure system fonts are loaded
       "fontconfig/fonts.conf".source = "${dotfilesSource}/dots/.config/fontconfig/fonts.conf";
       "foot".source = "${dotfilesSource}/dots/.config/foot";
-      "fuzzel".source = "${dotfilesSource}/dots/.config/fuzzel";
+      "fuzzel/fuzzel.ini".source = "${dotfilesSource}/dots/.config/fuzzel/fuzzel.ini";
+      # fuzzel/fuzzel_theme.ini is mutable
+
       # Hyprland Config
       # Use text/readFile to put the file in the HM generation directory
       # This ensures relative sources (like hyprland/env.conf) resolve to OUR patched files
@@ -143,7 +154,7 @@ in
         $qsConfig = ${config.home.homeDirectory}/.config/quickshell/ii
         env = qsConfig,${config.home.homeDirectory}/.config/quickshell/ii
       '';
-      "hypr/hyprland/colors.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/colors.conf";
+      # hypr/hyprland/colors.conf is mutable
       "hypr/hyprland/execs.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/execs.conf";
       "hypr/hyprland/general.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/general.conf";
       "hypr/hyprland/keybinds.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/keybinds.conf";
@@ -155,7 +166,9 @@ in
       "hypr/custom/keybinds.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/keybinds.conf";
       "hypr/custom/rules.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/rules.conf";
       "hypr/custom/scripts".source = "${dotfilesSource}/dots/.config/hypr/custom/scripts";
-      "hypr/hyprlock".source = "${dotfilesSource}/dots/.config/hypr/hyprlock";
+      "hypr/hyprlock/check-capslock.sh".source = "${dotfilesSource}/dots/.config/hypr/hyprlock/check-capslock.sh";
+      # hypr/hyprlock/colors.conf is mutable
+      "hypr/hyprlock/status.sh".source = "${dotfilesSource}/dots/.config/hypr/hyprlock/status.sh";
       "hypr/hypridle.conf".source = "${dotfilesSource}/dots/.config/hypr/hypridle.conf";
       "hypr/hyprlock.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprlock.conf";
       "hypr/monitors.conf".source = "${dotfilesSource}/dots/.config/hypr/monitors.conf";
@@ -207,6 +220,18 @@ in
       # Path to the config directory in the dotfiles source
       configPath="${dotfilesSource}/dots/.config"
       targetPath="$HOME/.config"
+
+      # Make some configurations writable for switchwall.sh
+      cfg_files=( ${lib.concatStringsSep " " mutableFiles} )
+      for fil in "''${cfg_files[@]}"; do
+        _s="$configPath/$fil"
+        _t="$targetPath/$fil"
+        mkdir -p "$(dirname "$_t")"
+        if [ ! -f "$_t" ]; then
+          cp "$_s" "$_t"
+          chmod 644 "$_t"
+        fi
+      done
 
       # Create illogical-impulse directory structure if it doesn't exist (Stateful config)
       $DRY_RUN_CMD mkdir -p "$targetPath/illogical-impulse"
