@@ -183,9 +183,6 @@ in
         # Replace complex shebangs that patchShebangs can't handle with standard python
         # The complex shebang tried to source a venv, but we provide pythonEnv directly via Nix
         find $out -name "*.py" -print0 | xargs -0 sed -i 's|^#!.*ILLOGICAL_IMPULSE_VIRTUAL_ENV.*|#!/usr/bin/env python3|'
-        
-        # Suppress permission errors when writing to /dev/pts in applycolor.sh
-        sed -i 's|/dev/pts/\*|/dev/pts/* 2>/dev/null|' $out/ii/scripts/colors/applycolor.sh
 
         patchShebangs $out
       '';
