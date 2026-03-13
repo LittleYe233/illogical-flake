@@ -245,7 +245,6 @@ in
         if [ -f "$configPath/illogical-impulse/config.json" ]; then
           $DRY_RUN_CMD cp "$configPath/illogical-impulse/config.json" "$targetPath/illogical-impulse/config.json"
           $DRY_RUN_CMD chmod u+w "$targetPath/illogical-impulse/config.json"
-          $DRY_RUN_CMD sed -i "s|\"wallpaperPath\": \"\"|\"wallpaperPath\": \"$HOME/.local/share/illogical-flake/background.png\"|g" "$targetPath/illogical-impulse/config.json"
         fi
       fi
       
