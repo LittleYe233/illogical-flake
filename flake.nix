@@ -24,7 +24,7 @@
 
   outputs = inputs@{ self, nixpkgs, quickshell, nur, dotfiles, ... }:
     let
-      flakeInputs = { inherit quickshell nur dotfiles; };
+      flakeInputs = { inherit (inputs) quickshell nur dotfiles; inherit self; };
     in {
       # Home-manager module for user configuration
       homeManagerModules.default = { config, lib, pkgs, ... }: (import ./home-module.nix) {

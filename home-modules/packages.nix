@@ -188,6 +188,8 @@ in
       hicolor-icon-theme # base icon theme (required by most themes)
       gnome-icon-theme # additional GNOME icon coverage
       kdePackages.fcitx5-configtool # Fcitx5 GUI controller
+      kdePackages.plasma-systemmonitor
+      kdePackages.kcmutils
       
       # Python with required packages for wallpaper analysis
       pythonEnv

@@ -18,6 +18,8 @@ let
     "hypr/hyprland/colors.conf"
     "hypr/hyprlock/colors.conf"
     "fuzzel/fuzzel_theme.ini"
+    "Kvantum/MaterialAdw/MaterialAdw.kvconfig"
+    "Kvantum/MaterialAdw/MaterialAdw.svg"
     # No need for kdeglobals for it is handled in activation script already
     #"kdeglobals"
   ];
@@ -172,7 +174,15 @@ in
       "hypr/hypridle.conf".source = "${dotfilesSource}/dots/.config/hypr/hypridle.conf";
       "hypr/hyprlock.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprlock.conf";
       "hypr/monitors.conf".source = "${dotfilesSource}/dots/.config/hypr/monitors.conf";
-      "hypr/workspaces.conf".source = "${dotfilesSource}/dots/.config/hypr/workspaces.conf";      
+      "hypr/workspaces.conf".source = "${dotfilesSource}/dots/.config/hypr/workspaces.conf";
+      "illogical-impulse/config.json" = {
+        text = builtins.replaceStrings 
+          ["\"wallpaperPath\": \"\""] 
+          ["\"wallpaperPath\": \"${config.home.homeDirectory}/.local/share/illogical-flake/background.png\""] 
+          (builtins.readFile "${dotfilesSource}/dots/.config/illogical-impulse/config.json");
+        # Make it managed by home manager but still writable
+        force = true;
+      };
       "kde-material-you-colors".source = "${dotfilesSource}/dots/.config/kde-material-you-colors";
       # kdeglobals handled in activation script
       # "kdeglobals".source = "${dotfilesSource}/dots/.config/kdeglobals";
@@ -180,7 +190,8 @@ in
         source = "${dotfilesSource}/dots/.config/kitty";
       };
       "konsolerc".source = "${dotfilesSource}/dots/.config/konsolerc";
-      "Kvantum".source = "${dotfilesSource}/dots/.config/Kvantum";
+      "Kvantum/Colloid".source = "${dotfilesSource}/dots/.config/Kvantum/Colloid";
+      "Kvantum/kvantum.kvconfig".source = "${dotfilesSource}/dots/.config/Kvantum/kvantum.kvconfig";
       "matugen".source = "${dotfilesSource}/dots/.config/matugen";
       "mpv".source = "${dotfilesSource}/dots/.config/mpv";
       # Patch QuickShell scripts to fix shebangs (e.g., #!/bin/bash -> #!/nix/store/.../bash)
@@ -213,6 +224,7 @@ in
       # and the custom icon is handled here if needed, but it's usually in the package too?
       # Re-adding the single SVG manually just in case
       "icons/hicolor/scalable/apps/illogical-impulse.svg".source = "${dotfilesSource}/dots/.local/share/icons/illogical-impulse.svg";
+      "illogical-flake/background.png".source = "${inputs.self}/assets/yande.re 1114313 fixed hiten hitenkei seifuku yuri.png";
     };
 
     # Use activation script ONLY for stateful integration
