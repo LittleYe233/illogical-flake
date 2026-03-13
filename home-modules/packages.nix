@@ -179,7 +179,8 @@ in
 
       ##### Other optionals #####
       pulseaudio # provides pactl and parec for audio recording
-      gnome-settings-daemon # [rovides gsettings
+      gnome-settings-daemon # provides gsettings
+      gsettings-desktop-schemas # collection of gsettings schemas
       easyeffects # provides easyeffects (pipewire audo effects)
       wayland-protocols
       sassc # provides sassc (front-end libsass)
