@@ -175,14 +175,6 @@ in
       "hypr/hyprlock.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprlock.conf";
       "hypr/monitors.conf".source = "${dotfilesSource}/dots/.config/hypr/monitors.conf";
       "hypr/workspaces.conf".source = "${dotfilesSource}/dots/.config/hypr/workspaces.conf";
-      "illogical-impulse/config.json" = {
-        text = builtins.replaceStrings 
-          ["\"wallpaperPath\": \"\""] 
-          ["\"wallpaperPath\": \"${config.home.homeDirectory}/.local/share/illogical-flake/background.png\""] 
-          (builtins.readFile "${dotfilesSource}/dots/.config/illogical-impulse/config.json");
-        # Make it managed by home manager but still writable
-        force = true;
-      };
       "kde-material-you-colors".source = "${dotfilesSource}/dots/.config/kde-material-you-colors";
       # kdeglobals handled in activation script
       # "kdeglobals".source = "${dotfilesSource}/dots/.config/kdeglobals";
@@ -253,6 +245,7 @@ in
         if [ -f "$configPath/illogical-impulse/config.json" ]; then
           $DRY_RUN_CMD cp "$configPath/illogical-impulse/config.json" "$targetPath/illogical-impulse/config.json"
           $DRY_RUN_CMD chmod u+w "$targetPath/illogical-impulse/config.json"
+          $DRY_RUN_CMD sed -i "s|\"wallpaperPath\": \"\"|\"wallpaperPath\": \"$HOME/.local/share/illogical-flake/background.png\"|g" "$targetPath/illogical-impulse/config.json"
         fi
       fi
       
