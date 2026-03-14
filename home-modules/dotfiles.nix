@@ -20,6 +20,7 @@ let
     "fuzzel/fuzzel_theme.ini"
     "Kvantum/MaterialAdw/MaterialAdw.kvconfig"
     "Kvantum/MaterialAdw/MaterialAdw.svg"
+    "illogical-impulse/config.json"
     # No need for kdeglobals for it is handled in activation script already
     #"kdeglobals"
   ];
@@ -237,17 +238,6 @@ in
         fi
       done
 
-      # Create illogical-impulse directory structure if it doesn't exist (Stateful config)
-      $DRY_RUN_CMD mkdir -p "$targetPath/illogical-impulse"
-
-      # Copy the default config.json only if it doesn't already exist
-      if [ ! -f "$targetPath/illogical-impulse/config.json" ]; then
-        if [ -f "$configPath/illogical-impulse/config.json" ]; then
-          $DRY_RUN_CMD cp "$configPath/illogical-impulse/config.json" "$targetPath/illogical-impulse/config.json"
-          $DRY_RUN_CMD chmod u+w "$targetPath/illogical-impulse/config.json"
-        fi
-      fi
-      
       # Handle kdeglobals (Mutable copy)
       # If it's a symlink (likely from previous HM generation), remove it first
       if [ -L "$targetPath/kdeglobals" ]; then
