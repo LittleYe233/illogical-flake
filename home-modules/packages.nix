@@ -187,7 +187,6 @@ in
       papirus-icon-theme # primary icon theme
       hicolor-icon-theme # base icon theme (required by most themes)
       gnome-icon-theme # additional GNOME icon coverage
-      kdePackages.fcitx5-configtool # Fcitx5 GUI controller
       kdePackages.plasma-systemmonitor
       kdePackages.kcmutils
       

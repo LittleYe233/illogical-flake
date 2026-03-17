@@ -20,7 +20,7 @@ let
     "fuzzel/fuzzel_theme.ini"
     "Kvantum/MaterialAdw/MaterialAdw.kvconfig"
     "Kvantum/MaterialAdw/MaterialAdw.svg"
-    "illogical-impulse/config.json"
+    #"illogical-impulse/config.json"
     # No need for kdeglobals for it is handled in activation script already
     #"kdeglobals"
   ];
