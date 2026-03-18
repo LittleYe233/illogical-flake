@@ -14,6 +14,7 @@ let
     cffi
     click
     dbus-python
+    ipython
     (ps."kde-material-you-colors".overridePythonAttrs (old: {
       propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [ python-magic ];
     }))
