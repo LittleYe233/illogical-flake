@@ -23,6 +23,7 @@ let
     #"illogical-impulse/config.json"
     # No need for kdeglobals for it is handled in activation script already
     #"kdeglobals"
+    "dolphinrc"
   ];
 in
 {
@@ -120,7 +121,8 @@ in
       "chrome-flags.conf".source = "${dotfilesSource}/dots/.config/chrome-flags.conf";
       "code-flags.conf".source = "${dotfilesSource}/dots/.config/code-flags.conf";
       "darklyrc".source = "${dotfilesSource}/dots/.config/darklyrc";
-      "dolphinrc".source = "${dotfilesSource}/dots/.config/dolphinrc";
+      # Should be mutable for Dolphin
+      #"dolphinrc".source = "${dotfilesSource}/dots/.config/dolphinrc";
       # Fish config (custom integration)
       "fish" = mkIf cfg.dotfiles.fish.enable {
         source = "${dotfilesSource}/dots/.config/fish";

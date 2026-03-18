@@ -127,6 +127,7 @@ in
       kdePackages.kde-cli-tools # Provides various KDE CLI utilities
       kdePackages.kdialog # Dialog prompts
       #kdePackages.kirigami
+      kdePackages.plasma-integration # Needed for kde theming
       kdePackages.ark
       kdePackages.okular
 
