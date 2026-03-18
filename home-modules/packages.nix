@@ -153,7 +153,7 @@ in
 
       ### screencapture
       hyprshot # provides hyprshot
-      #grim # not in dist-arch but may be an optional alternative
+      grim # not in dist-arch but may be an optional alternative
       slurp # provides slurp
       swappy # provides swappy
       tesseract # provides tesseract
