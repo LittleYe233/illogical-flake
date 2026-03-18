@@ -124,6 +124,9 @@ in
 
       ## Optional pkgs
       kdePackages.plasma-workspace # provides plasma-apply-colorscheme
+      (pkgs.writeShellScriptBin "plasma-changeicons" ''
+        exec ${pkgs.kdePackages.plasma-workspace}/libexec/plasma-changeicons "$@"
+      '') # expose `plasma-changeicons` command to satisfy switchwall.sh
       kdePackages.kde-cli-tools # Provides various KDE CLI utilities
       kdePackages.kdialog # Dialog prompts
       #kdePackages.kirigami
