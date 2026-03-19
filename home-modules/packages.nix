@@ -132,6 +132,7 @@ in
       kdePackages.kdialog # Dialog prompts
       #kdePackages.kirigami
       kdePackages.plasma-integration # Needed for kde theming
+      libsForQt5.qtstyleplugin-kvantum # Needed for Qt5 theming
       kdePackages.ark
       kdePackages.okular
 
