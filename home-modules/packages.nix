@@ -135,7 +135,7 @@ in
       kdePackages.okular
 
       ### microtex-git
-      # TODO: unavailable
+      customPkgs.illogical-impulse-microtex
 
       ### oneui4-icons-git
       customPkgs.illogical-impulse-oneui4-icons
