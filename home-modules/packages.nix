@@ -93,18 +93,16 @@ in
       adw-gtk3 # libadwaita port
       kdePackages.breeze # breeze
       kdePackages.breeze-icons # breeze
-      #breeze-plus # third-party breeze-plus icon set # TODO: unavailable
-      customPkgs.breeze-plus-icons
+      customPkgs.breeze-plus-icons # third-party breeze-plus icon set 
       darkly # Qt style, provides darkly-settings6
       darkly-qt5 # Qt style
       eza # provides eza
       #fish # provides fish
       fontconfig # provides fc-*
       matugen # provides matugen
-      #otf-space-grotesk # TODO: unavailable
+      customPkgs.custom-fonts.default # Provides space grotesk and readex pro
       #nerd-fonts.jetbrains-mono
       material-symbols # Google Material symbols icons
-      #ttf-readex-pro # TODO: unavailable
       #rubik
       twemoji-color-font # Color emoji SVGinOT font using Twitter Unicode 10
 
