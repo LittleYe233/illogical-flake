@@ -94,6 +94,7 @@ in
       kdePackages.breeze # breeze
       kdePackages.breeze-icons # breeze
       #breeze-plus # third-party breeze-plus icon set # TODO: unavailable
+      customPkgs.breeze-plus-icons
       darkly # Qt style, provides darkly-settings6
       darkly-qt5 # Qt style
       eza # provides eza
