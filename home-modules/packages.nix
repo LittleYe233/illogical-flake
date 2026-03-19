@@ -161,7 +161,7 @@ in
       slurp # provides slurp
       swappy # provides swappy
       tesseract # provides tesseract
-      #tesseract-data-eng # TODO: unavailable
+      customPkgs.tesseract-data.eng
       wf-recorder # provides wf-recorder
 
       ### toolkit
