@@ -220,6 +220,7 @@ in
       # Re-adding the single SVG manually just in case
       "icons/hicolor/scalable/apps/illogical-impulse.svg".source = "${dotfilesSource}/dots/.local/share/icons/illogical-impulse.svg";
       "illogical-flake/background.png".source = "${inputs.self}/assets/yande.re 1114313 fixed hiten hitenkei seifuku yuri.png";
+      "illogical-flake/lock-background.jpg".source = "${inputs.self}/assets/yande.re 1192741 gakuen_idolm@ster hataya_misuzu mugugu seifuku the_idolm@ster tsukimura_temari yuri.jpg";
     };
 
     # Use activation script ONLY for stateful integration
