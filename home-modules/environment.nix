@@ -23,6 +23,7 @@ let
     qtwebsockets
     syntax-highlighting
     kirigami.unwrapped
+    kirigami-addons
     bluedevil
     bluez-qt
     plasma-nm
