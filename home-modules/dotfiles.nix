@@ -151,8 +151,6 @@ in
         # --- Injected Environment by Illogical Impulse Flake ---
         env = PATH,${config.home.homeDirectory}/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH
         env = XDG_DATA_DIRS,${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${config.home.homeDirectory}/.nix-profile/share:${config.home.homeDirectory}/.local/share:/etc/profiles/per-user/${config.home.username}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:$XDG_DATA_DIRS
-        env = QT_PLUGIN_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/plugins:${config.home.homeDirectory}/.nix-profile/lib/plugins
-        env = QML2_IMPORT_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/qml
         env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
                 
         # Define qsConfig for exec-once commands

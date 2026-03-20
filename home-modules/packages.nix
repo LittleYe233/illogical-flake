@@ -113,6 +113,7 @@ in
 
       ### kde
       kdePackages.bluedevil # Bluetooth management (for kcm_bluetooth)
+      kdePackages.bluez-qt # Required by bluedevil for QML modules
       # Both enabled as service system-wide
       #gnome-keyring # provides gnome-keyring
       #networkmanager
