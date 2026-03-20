@@ -26,6 +26,8 @@ let
     bluedevil
     bluez-qt
     plasma-nm
+    libplasma
+    ksvg
     plasma-workspace
     kcmutils
   ] ++ [ pkgs.qt6Packages.qt6ct ];
