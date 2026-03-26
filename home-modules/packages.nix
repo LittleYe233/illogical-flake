@@ -145,7 +145,7 @@ in
       ### python
       #clang # NOTE: no such pkg? no need?
       uv # provides uv
-      #gtk4 # use options instead
+      gtk4
       libadwaita
       libsoup_3 # GNOME HTTP C/S library
       libportal-gtk4 # Flatpak portal library
@@ -210,9 +210,7 @@ in
       starship
     ];
 
-    gtk.gtk4 = {
-      enable = true;
-      theme = null;
-    };
+    # Supress deprecation warning
+    gtk.gtk4.theme = null;
   };
 }

@@ -221,6 +221,11 @@ in
       "illogical-flake/lock-background.jpg".source = "${inputs.self}/assets/yande.re 1192741 gakuen_idolm@ster hataya_misuzu mugugu seifuku the_idolm@ster tsukimura_temari yuri.jpg";
     };
 
+    # Home manager introduces new option to manage Kvantum, which causes config file conflicts.
+    # We still use manual management to those configs.
+    # See: https://github.com/nix-community/home-manager/commit/a8931b2575dbf063e324b00c161a888b97f036b9
+    qt.kvantum.enable = false;
+
     # Use activation script ONLY for stateful integration
     home.activation.copyIllogicalImpulseConfigs = config.lib.dag.entryAfter ["writeBoundary"] ''
       # Path to the config directory in the dotfiles source
