@@ -9,8 +9,6 @@ let
   # The raw QuickShell package
   qsPackage = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
   
-  # Custom packages
-  customPkgs = import ../pkgs { inherit pkgs; };
 in
 {
   config = lib.mkIf cfg.enable {
@@ -23,7 +21,6 @@ in
           pkgs.adwaita-icon-theme 
           pkgs.hicolor-icon-theme 
           pkgs.papirus-icon-theme
-          customPkgs.illogical-impulse-oneui4-icons
           pkgs.gnome-icon-theme
           pkgs.kdePackages.breeze-icons
           pkgs.lxqt.pavucontrol-qt

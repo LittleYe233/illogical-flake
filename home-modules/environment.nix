@@ -31,7 +31,14 @@ let
     ksvg
     plasma-workspace
     kcmutils
-  ] ++ [ pkgs.qt6Packages.qt6ct ];
+  ] ++ [ pkgs.qt6Packages.qt6ct ]
+    ++ (with pkgs; [
+    vulkan-headers
+    libdrm
+    cpptrace
+    jemalloc
+    mesa
+  ]);
 in
 {
   config = lib.mkIf cfg.enable {

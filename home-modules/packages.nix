@@ -136,9 +136,6 @@ in
       ### microtex-git
       customPkgs.illogical-impulse-microtex
 
-      ### oneui4-icons-git
-      customPkgs.illogical-impulse-oneui4-icons
-
       ### portal
       # Included elsewhere
 

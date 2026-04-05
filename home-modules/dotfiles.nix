@@ -9,10 +9,6 @@ let
   # Use dotfiles from flake input
   dotfilesSource = inputs.dotfiles;
 
-  # Custom packages
-  customPkgs = import ../pkgs { inherit pkgs; };
-  oneUIIconsPath = "${customPkgs.illogical-impulse-oneui4-icons}/share/icons";
-
   # Must-be mutable configuration files for switchwall.sh
   mutableFiles = [
     "hypr/hyprland/colors.conf"
@@ -20,7 +16,7 @@ let
     "fuzzel/fuzzel_theme.ini"
     "Kvantum/MaterialAdw/MaterialAdw.kvconfig"
     "Kvantum/MaterialAdw/MaterialAdw.svg"
-    #"illogical-impulse/config.json"
+    "illogical-impulse/config.json"
     # No need for kdeglobals for it is handled in activation script already
     #"kdeglobals"
     "dolphinrc"
@@ -84,15 +80,15 @@ in
     gtk = {
       enable = mkDefault true;
       iconTheme = {
-        name = mkDefault "OneUI-dark";
-        package = mkDefault customPkgs.illogical-impulse-oneui4-icons;
+        name = mkDefault "Papirus-Dark";
+        package = mkDefault pkgs.papirus-icon-theme;
       };
     };
 
     # Set icon theme via dconf for GNOME/GTK apps
     dconf.settings = {
       "org/gnome/desktop/interface" = {
-        icon-theme = mkDefault "OneUI-dark";
+        icon-theme = mkDefault "Papirus-Dark";
       };
     };
 
@@ -161,6 +157,7 @@ in
       "hypr/hyprland/keybinds.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/keybinds.conf";
       "hypr/hyprland/rules.conf".source = "${dotfilesSource}/dots/.config/hypr/hyprland/rules.conf";
       "hypr/hyprland/scripts".source = "${dotfilesSource}/dots/.config/hypr/hyprland/scripts";
+      "hypr/hyprland/shellOverrides".source = "${dotfilesSource}/dots/.config/hypr/hyprland/shellOverrides";
       "hypr/custom/env.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/env.conf";
       "hypr/custom/execs.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/execs.conf";
       "hypr/custom/general.conf".source = "${dotfilesSource}/dots/.config/hypr/custom/general.conf";
@@ -211,7 +208,7 @@ in
 
     # Dotfiles management via Home Manager (XDG Data)
     xdg.dataFile = {
-      # Note: Icons are installed via packages (illogical-impulse-oneui4-icons) 
+      # Note: Icons are installed via packages
       # and the custom icon is handled here if needed, but it's usually in the package too?
       # Re-adding the single SVG manually just in case
       "icons/hicolor/scalable/apps/illogical-impulse.svg".source = "${dotfilesSource}/dots/.local/share/icons/illogical-impulse.svg";
@@ -289,9 +286,9 @@ in
       # This is still needed because qt6ct might be generating its config
       for qt_conf in "$targetPath/qt5ct/qt5ct.conf" "$targetPath/qt6ct/qt6ct.conf"; do
         if [ -f "$qt_conf" ]; then
-          # Replace OneUI with OneUI-dark, OneUI-light stays as-is
-          $DRY_RUN_CMD sed -i 's/^icon_theme=OneUI$/icon_theme=OneUI-dark/' "$qt_conf"
-          $DRY_RUN_CMD sed -i 's/^icon_theme=OneUI-light$/icon_theme=OneUI-light/' "$qt_conf"
+          $DRY_RUN_CMD sed -i 's/^icon_theme=Papirus$/icon_theme=Papirus-Dark/' "$qt_conf"
+          $DRY_RUN_CMD sed -i 's/^icon_theme=OneUI$/icon_theme=Papirus-Dark/' "$qt_conf"
+          $DRY_RUN_CMD sed -i 's/^icon_theme=OneUI-light$/icon_theme=Papirus-Light/' "$qt_conf"
         fi
       done
     '';
