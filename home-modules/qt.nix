@@ -28,7 +28,6 @@ in
         ]}:$HOME/.nix-profile/share:$HOME/.local/share:/etc/profiles/per-user/$USER/share:/run/current-system/sw/share:/usr/share:$XDG_DATA_DIRS"
         
         export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-        export QT_QPA_PLATFORMTHEME=gtk3
         
         # Launch the real binary
         exec ${qsPackage}/bin/qs "$@"
