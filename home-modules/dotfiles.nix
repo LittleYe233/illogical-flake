@@ -160,7 +160,7 @@ in
       "hypr/custom/general.lua".source = "${dotfilesSource}/dots/.config/hypr/custom/general.lua";
       "hypr/custom/keybinds.lua".source = "${dotfilesSource}/dots/.config/hypr/custom/keybinds.lua";
       "hypr/custom/rules.lua".source = "${dotfilesSource}/dots/.config/hypr/custom/rules.lua";
-      "hypr/custom/scripts".source = "${dotfilesSource}/dots/.config/hypr/custom/scripts";
+      # hypr/custom/scripts is a mutable directory (see activation script) so switchwall.sh can write __restore_video_wallpaper.sh at runtime
       "hypr/custom/variables.lua".source = "${dotfilesSource}/dots/.config/hypr/custom/variables.lua";
       "hypr/hyprlock/check-capslock.sh".source = "${dotfilesSource}/dots/.config/hypr/hyprlock/check-capslock.sh";
       # hypr/hyprlock/colors.conf is mutable
@@ -275,6 +275,31 @@ in
           fi
           $DRY_RUN_CMD cp "$file" "$konsoleTarget/$filename"
           $DRY_RUN_CMD chmod u+w "$konsoleTarget/$filename"
+      done
+
+      # Handle hypr/custom/scripts directory (Mutable directory)
+      # switchwall.sh regenerates __restore_video_wallpaper.sh here at runtime,
+      # so this must be a real writable directory, not a read-only symlink.
+      scriptsTarget="$HOME/.config/hypr/custom/scripts"
+      scriptsSource="${dotfilesSource}/dots/.config/hypr/custom/scripts"
+
+      # If it is a symlink (from a previous HM generation), remove it
+      if [ -L "$scriptsTarget" ]; then
+          $DRY_RUN_CMD rm "$scriptsTarget"
+      fi
+
+      # Ensure the directory exists
+      if [ ! -d "$scriptsTarget" ]; then
+          $DRY_RUN_CMD mkdir -p "$scriptsTarget"
+      fi
+
+      # Seed managed scripts if absent (preserve runtime-generated content)
+      for file in "$scriptsSource"/*; do
+          filename=$(basename "$file")
+          if [ ! -e "$scriptsTarget/$filename" ]; then
+              $DRY_RUN_CMD cp "$file" "$scriptsTarget/$filename"
+              $DRY_RUN_CMD chmod u+w "$scriptsTarget/$filename"
+          fi
       done
 
       # Fix Qt icon theme configuration to use OneUI-dark/OneUI-light with Papirus fallback
