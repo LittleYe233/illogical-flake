@@ -121,6 +121,8 @@ in
       kdePackages.polkit-kde-agent-1 # Polkit authentication agent # NOTE: Hope it works in user-wide
       kdePackages.dolphin
       kdePackages.systemsettings
+      kdePackages.kio
+      kdePackages.kio-extras
 
       ## Optional pkgs
       kdePackages.plasma-workspace # provides plasma-apply-colorscheme
