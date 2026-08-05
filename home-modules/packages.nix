@@ -189,9 +189,8 @@ in
       sassc # provides sassc (front-end libsass)
       papirus-icon-theme # primary icon theme
       hicolor-icon-theme # base icon theme (required by most themes)
-      gnome-icon-theme # additional GNOME icon coverage
       kdePackages.kcmutils
-      
+
       # Python with required packages for wallpaper analysis
       pythonEnv
 
