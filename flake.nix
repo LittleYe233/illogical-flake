@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    packages = {
+      url = "git+https://codeberg.org/LittleYe233/packages.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Default dotfiles - can be overridden by users
     dotfiles = {
       url = "git+https://github.com/LittleYe233/dots-hyprland?submodules=1";
@@ -23,9 +28,9 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, quickshell, nur, dotfiles, ... }:
+  outputs = inputs@{ self, nixpkgs, quickshell, nur, dotfiles, packages, ... }:
     let
-      flakeInputs = { inherit (inputs) quickshell nur dotfiles; inherit self; };
+      flakeInputs = { inherit (inputs) quickshell nur dotfiles packages; inherit self; };
     in {
       # Home-manager module for user configuration
       homeManagerModules.default = { config, lib, pkgs, ... }: (import ./home-module.nix) {

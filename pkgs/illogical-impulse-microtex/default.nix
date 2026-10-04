@@ -6,8 +6,9 @@
   pkg-config,
   tinyxml-2,
   gtkmm3,
+  # gtksourceviewmm4 is unmaintained now, using a fork version
   gtksourceviewmm4, # identical to gtksourceviewmm in Arch repository
-  cairomm,
+  cairomm_1_0,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
     tinyxml-2
     gtkmm3
     gtksourceviewmm4
-    cairomm
+    cairomm_1_0
   ];
 
   postPatch = ''
