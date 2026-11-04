@@ -18,9 +18,9 @@ let
     click
     dbus-python
     ipython
-    (ps."kde-material-you-colors".overridePythonAttrs (old: {
+    pkgs.kde-material-you-colors.overridePythonAttrs (old: {
       propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [ python-magic ];
-    }))
+    })
     libsass
     loguru
     material-color-utilities
